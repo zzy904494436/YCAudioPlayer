@@ -44,74 +44,117 @@ android {
     //签名配置，SigningConfig类型
     //Plugin requires 'APK Signature Scheme v2 Enabled' for debug.
     //signingConfigs{ } 签名配置需要放到buildTypes{ }之前，否则会报上面错误
+//    signingConfigs {
+////        debug {
+////            v1SigningEnabled true
+////            v2SigningEnabled true
+////            try {
+////                def signP = getSigningProperties(true)
+////                storeFile file(signP[0])
+////                storePassword signP[1]
+////                keyAlias signP[2]
+////                keyPassword signP[3]
+////            } catch (ex) {
+////                ex.printStackTrace()
+////            }
+////        }
+//
+//        release {
+//            v1SigningEnabled true
+//            v2SigningEnabled true
+//            try {
+//                def signP = getSigningProperties(false)
+//                storeFile file(signP[0])
+//                storePassword signP[1]
+//                keyAlias signP[2]
+//                keyPassword signP[3]
+//            } catch (ex) {
+//                ex.printStackTrace()
+//            }
+//        }
+//    }
+
+    //BuildType类型
+//    buildTypes {
+//        //会生成一个buildConfig
+//        //如果需要修改网址，请修改 url.properties 文件
+//        debug {
+//            minifyEnabled false
+//            buildConfigField "boolean", "IS_DEBUG", "true"
+//            buildConfigField "int", "URL_CONFIG", "" + getUrl(0) + ""
+//            buildConfigField "String", "BUILD_TIME", "\"" + releaseTime() + "\""
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.debug
+//            manifestPlaceholders = [
+//                    app_player_name: "叮咚",
+//                    app_player_icon: "@drawable/ic_nav_homepage"
+//            ]
+//        }
+//        preview {
+//            minifyEnabled false
+//            buildConfigField "boolean", "IS_DEBUG", "true"
+//            buildConfigField "int", "URL_CONFIG", "" + getUrl(1) + ""
+//            buildConfigField "String", "BUILD_TIME", "\"" + releaseTime() + "\""
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//            manifestPlaceholders = [
+//                    app_player_name: "叮咚",
+//                    app_player_icon: "@drawable/ic_nav_scan"
+//            ]
+//        }
+//        release {
+//            minifyEnabled false
+//            buildConfigField "boolean", "IS_DEBUG", "false"
+//            buildConfigField "int", "URL_CONFIG", "" + getUrl(2) + ""
+//            buildConfigField "String", "BUILD_TIME", "\"" + releaseTime() + "\""
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//            manifestPlaceholders = [
+//                    app_player_name: "叮咚",
+//                    app_player_icon: "@drawable/ic_launcher"
+//            ]
+//        }
+//    }
+
     signingConfigs {
         debug {
-            v1SigningEnabled true
-            v2SigningEnabled true
-            try {
-                def signP = getSigningProperties(true)
-                storeFile file(signP[0])
-                storePassword signP[1]
-                keyAlias signP[2]
-                keyPassword signP[3]
-            } catch (ex) {
-                ex.printStackTrace()
-            }
+            storeFile file('mycorekey123.jks')
+            storePassword "keketing"
+            keyAlias "kkt"
+            keyPassword "keketing123"
         }
-
         release {
-            v1SigningEnabled true
-            v2SigningEnabled true
-            try {
-                def signP = getSigningProperties(false)
-                storeFile file(signP[0])
-                storePassword signP[1]
-                keyAlias signP[2]
-                keyPassword signP[3]
-            } catch (ex) {
-                ex.printStackTrace()
-            }
+            storeFile file('mycorekey123.jks')
+            storePassword "keketing"
+            keyAlias "kkt"
+            keyPassword "keketing123"
         }
     }
 
-    //BuildType类型
     buildTypes {
-        //会生成一个buildConfig
-        //如果需要修改网址，请修改 url.properties 文件
         debug {
-            minifyEnabled false
+            minifyEnabled false   // 是否启动混淆
+            signingConfig signingConfigs.debug
+            buildConfigField "Boolean", "DEBUG_MODE", "true"
             buildConfigField "boolean", "IS_DEBUG", "true"
             buildConfigField "int", "URL_CONFIG", "" + getUrl(0) + ""
             buildConfigField "String", "BUILD_TIME", "\"" + releaseTime() + "\""
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
             manifestPlaceholders = [
                     app_player_name: "叮咚",
                     app_player_icon: "@drawable/ic_nav_homepage"
             ]
         }
-        preview {
-            minifyEnabled false
-            buildConfigField "boolean", "IS_DEBUG", "true"
-            buildConfigField "int", "URL_CONFIG", "" + getUrl(1) + ""
-            buildConfigField "String", "BUILD_TIME", "\"" + releaseTime() + "\""
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-            manifestPlaceholders = [
-                    app_player_name: "叮咚",
-                    app_player_icon: "@drawable/ic_nav_scan"
-            ]
-        }
         release {
             minifyEnabled false
-            buildConfigField "boolean", "IS_DEBUG", "false"
-            buildConfigField "int", "URL_CONFIG", "" + getUrl(2) + ""
+            signingConfig signingConfigs.release
+            buildConfigField "Boolean", "DEBUG_MODE", "false"
+            buildConfigField "boolean", "IS_DEBUG", "true"
+            buildConfigField "int", "URL_CONFIG", "" + getUrl(0) + ""
             buildConfigField "String", "BUILD_TIME", "\"" + releaseTime() + "\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
             manifestPlaceholders = [
                     app_player_name: "叮咚",
-                    app_player_icon: "@drawable/ic_launcher"
+                    app_player_icon: "@drawable/ic_nav_homepage"
             ]
         }
     }
@@ -168,11 +211,11 @@ android {
             //init.gradle被执行前,构建已经发生,且buildStarted已经被回调,
             // 因此后续加入的BuildListener都不会再调用buildStarted
             gradle.println("YCAudioPlayer=========BuildListener:buildStarted=========")
-            defaultMapping=".app/mapping.txt"
-            if(!new File(defaultMapping).exists()){
+            defaultMapping = ".app/mapping.txt"
+            if (!new File(defaultMapping).exists()) {
                 gradle.println("YCAudioPlayer app目录下不存在mapping文件，开始创建新的空文件")
                 new File(defaultMapping).createNewFile()
-            }else{
+            } else {
                 gradle.println("YCAudioPlayer app目录下存在mapping文件，不在创建空文件")
             }
         }
@@ -207,7 +250,7 @@ android {
     }
 
     //当gradle构建完成调用该方法
-    gradle.buildFinished{
+    gradle.buildFinished {
         println("YCAudioPlayer buildFinished")
 
         //打印git分支     例如：git:feature-3.0.1
@@ -332,7 +375,7 @@ walle {
 
 static String[] getSigningProperties(boolean isDebug) {
     File propFile = new File('sign.properties')
-    if(propFile.canRead()){
+    if (propFile.canRead()) {
         if (propFile.exists()) {
             println 'YCAudioPlayer signing.properties is found'
             Properties props = new Properties()
@@ -356,7 +399,7 @@ static String[] getSigningProperties(boolean isDebug) {
                     signP[3] = props['KEY_PASSWORD']
                     return signP
                 }
-            }else {
+            } else {
                 println 'YCAudioPlayer signing.properties found but some entries are missing'
             }
         }
@@ -369,7 +412,7 @@ static int getUrl(int status) {
     //这个文件不可写注释
     //读取工程目录下url.properties文件
     File propFile = new File('url.properties')
-    if(!propFile.canRead()){
+    if (!propFile.canRead()) {
         println 'YCAudioPlayer url.properties not found'
         return
     }

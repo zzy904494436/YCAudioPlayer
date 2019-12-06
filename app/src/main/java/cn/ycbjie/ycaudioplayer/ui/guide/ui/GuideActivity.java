@@ -241,7 +241,6 @@ public class GuideActivity extends BaseActivity implements GuideContract.View ,E
         SPUtils.getInstance(Constant.SP_NAME).put(Constant.APP_OPEN_COUNT,openCount+1);
     }
 
-
     private class PlayServiceConnection implements ServiceConnection {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -256,7 +255,6 @@ public class GuideActivity extends BaseActivity implements GuideContract.View ,E
             AppLogUtils.e("onServiceDisconnected"+name);
         }
     }
-
 
     /**
      * 可以在服务中扫描本地音乐

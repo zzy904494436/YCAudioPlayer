@@ -413,6 +413,10 @@ public class PlayService extends Service {
         }
     }
 
+
+
+
+
     /**---------------------开始播放，暂停播放，停止播放等-----------------------------------------*/
 
 
@@ -491,7 +495,6 @@ public class PlayService extends Service {
             mPlayState = MusicPlayAction.STATE_IDLE;
         }
     }
-
 
     /**
      * 播放索引为position的音乐

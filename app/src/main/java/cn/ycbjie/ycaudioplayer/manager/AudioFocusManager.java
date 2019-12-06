@@ -10,7 +10,6 @@ import static android.content.Context.AUDIO_SERVICE;
 
 public class AudioFocusManager implements AudioManager.OnAudioFocusChangeListener {
 
-
     private PlayService mPlayService;
     private AudioManager mAudioManager;
     /**

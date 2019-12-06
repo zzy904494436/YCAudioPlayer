@@ -126,7 +126,9 @@
         <activity android:name=".kotlin.view.activity.AndroidSearchActivity"/>
 
         <service android:name=".service.InitializeService"/>
+
         <service android:name=".service.PlayService" />
+
         <service android:name=".service.KillSelfService"/>
         <service android:name=".service.AppLogService"/>
         <service android:name=".service.AppInfoService"
